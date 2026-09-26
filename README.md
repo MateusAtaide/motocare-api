@@ -104,9 +104,7 @@ As manutenções são relacionadas aos veículos cadastrados.
 
 ### 1. Clone o repositório
 
-```bash
-git clone <URL_DO_REPOSITORIO>
-```
+git clone https://github.com/MateusAtaide/motocare-api.git
 
 Entre na pasta:
 
@@ -309,9 +307,7 @@ A BrasilAPI funciona como componente externo utilizado para consulta das informa
 
 O frontend do MotoCare é mantido em um repositório separado:
 
-```text
-<URL_DO_REPOSITORIO_FRONTEND>
-```
+https://github.com/MateusAtaide/motocare-front.git
 
 ---
 
