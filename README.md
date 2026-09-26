@@ -193,38 +193,57 @@ Através do Swagger é possível visualizar e testar as rotas disponíveis.
 
 ---
 
-## Integração com API externa
+## Integração com API externa - BrasilAPI / FIPE
 
-O MotoCare utiliza a **BrasilAPI** para obtenção de informações da tabela FIPE.
+O MotoCare utiliza a **BrasilAPI** como componente externo para obtenção de
+informações da tabela FIPE.
 
-A integração é realizada pelo backend. Dessa forma, o frontend não acessa diretamente o serviço externo.
+A BrasilAPI é um projeto que disponibiliza dados públicos brasileiros através
+de uma API HTTP. No MotoCare são utilizados os endpoints relacionados à
+tabela FIPE para consultar marcas, modelos, anos e detalhes de veículos.
 
-Fluxo da integração:
+### Informações da API externa
+
+- **API:** BrasilAPI
+- **Serviço utilizado:** FIPE
+- **Documentação:** https://brasilapi.com.br/docs
+- **Site oficial:** https://brasilapi.com.br/
+- **Licença:** MIT
+- **Autenticação/registro:** não utilizado pelo MotoCare
+
+### Endpoints externos utilizados
+
+O backend do MotoCare utiliza as seguintes operações da BrasilAPI:
+
+| Operação | Endpoint BrasilAPI |
+|---|---|
+| Consultar marcas | `GET /api/fipe/marcas/v1/{vehicleType}` |
+| Consultar modelos | `GET /api/fipe/veiculos/v1/{vehicleType}/{makerCode}` |
+| Consultar anos | `GET /api/fipe/anos/v1/{vehicleType}/{makerCode}/{modelCode}` |
+| Consultar detalhes | `GET /api/fipe/detalhes/v1/{vehicleType}/{makerCode}/{modelCode}/{yearCode}` |
+
+Os tipos de veículos suportados pela BrasilAPI para essas consultas são:
+
+- `carros`
+- `motos`
+- `caminhoes`
+
+### Fluxo da integração
+
+O frontend não acessa diretamente a BrasilAPI.
+
+A integração é realizada através da API Flask do MotoCare:
 
 ```text
-Frontend
-   │
-   │ REST
-   ▼
+MotoCare Front
+      |
+      | REST
+      v
 MotoCare API
-   │
-   │ HTTP
-   ▼
-BrasilAPI
-   │
-   ▼
-FIPE
-```
-
-A API do MotoCare recebe a solicitação do frontend, consulta a BrasilAPI, trata a resposta e devolve os dados necessários para a interface.
-
-São utilizadas consultas para:
-
-- marcas
-- modelos
-- anos
-- detalhes do veículo
-- valor FIPE
+      |
+      | HTTP
+      v
+BrasilAPI / FIPE
 
 ---
 
